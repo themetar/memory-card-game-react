@@ -20,19 +20,18 @@ function shuffleOrder(objects) {
 }
 
 export default function GameBoard() {
-  const [score, setScore] = useState(0);
   const [cards, setCards] = useState(shuffleOrder(cardsBase));
+  
+  const score = cards.reduce((acc, card) => acc + card.clicked, 0); // count clicked cards
 
   const clickCard = function clickCard(index) {
     const {clicked} = cards[index];
     if (clicked) {
       // reset
       alert("Reset game");
-      setScore(0);
       setCards(shuffleOrder(cards.map(card => ({...card, clicked: false}))));
     } else {
       // score up
-      setScore(score + 1);
       const updatedCards = cards.slice();
       updatedCards[index] = {...cards[index], clicked: true};
       setCards(shuffleOrder(updatedCards));
