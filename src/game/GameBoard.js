@@ -24,11 +24,14 @@ export default function GameBoard() {
   
   const score = cards.reduce((acc, card) => acc + card.clicked, 0); // count clicked cards
 
+  const [bestScore, setBestScore] = useState(0);
+
   const clickCard = function clickCard(index) {
     const {clicked} = cards[index];
     if (clicked) {
       // reset
       alert("Reset game");
+      setBestScore(score > bestScore ? score : bestScore);
       setCards(shuffleOrder(cards.map(card => ({...card, clicked: false}))));
     } else {
       // score up
@@ -40,6 +43,7 @@ export default function GameBoard() {
 
   return (
     <div className="GameBoard">
+      <p>Best Score: {bestScore}</p>
       <p>Score: {score}</p>
       <div className="cards-container">
         {cards.map((cardObj, i) =>
