@@ -1,9 +1,11 @@
 import './App.css';
+import GameBoard from './game/GameBoard';
 
 function App() {
   return (
     <div className="App">
-      Memory Card Game
+      <header>Memory Card Game</header>
+      <GameBoard />
     </div>
   );
 }
