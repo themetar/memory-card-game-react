@@ -9,9 +9,16 @@ const cardsBase = [
   {contents: "C", clicked: false},
   {contents: "D", clicked: false},
   {contents: "E", clicked: false},
+  {contents: "F", clicked: false},
+  {contents: "G", clicked: false},
+  {contents: "H", clicked: false},
+  {contents: "I", clicked: false},
+  {contents: "J", clicked: false},
 ];
 
 const START_COUNT = 5;
+
+const DIFFICULTY_LEVELS = {3:7, 5:8, 7:10};
 
 function shuffleOrder(objects) {
   const getNextIndex = permutation(objects.length);
@@ -35,8 +42,13 @@ function cardsStateReducer(cards, action) {
     case typeof action === "number":
       /* Player guessed a correct card */
       const index = action;
-      const updatedCards = cards.slice();
+      let updatedCards = cards.slice();
       updatedCards[index] = {...cards[index], clicked: true};
+      // check for difficulty breakpoint
+      const score = cards.reduce((acc, card) => acc + card.clicked, 0) + 1; // get score and calculate update
+      const nextLevel = DIFFICULTY_LEVELS[score];
+      const attach = nextLevel && cardsBase.slice(updatedCards.length, nextLevel).map(obj => ({...obj})) || [];
+      updatedCards = updatedCards.concat(attach);
       return shuffleOrder(updatedCards);
 
     default:
