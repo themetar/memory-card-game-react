@@ -1,5 +1,5 @@
 import './GameBoard.css';
-import {useReducer} from 'react';
+import {useEffect, useReducer, useRef} from 'react';
 import permutation from '../util/permutation';
 import Card from './Card';
 
@@ -20,17 +20,9 @@ const START_COUNT = 5;
 
 const DIFFICULTY_LEVELS = {3:7, 5:8, 7:10};
 
-function shuffleOrder(objects) {
-  const getNextIndex = permutation(objects.length);
-  objects.forEach(obj => {
-    obj.order = getNextIndex();
-  });
-  return objects;
-}
-
 function initCards(count) {
-  // deep copy 'count' number of items from cardsBase, then populate their order property
-  return shuffleOrder(cardsBase.slice(0, count).map(obj => ({...obj})));
+  // deep copy 'count' number of items from cardsBase
+  return cardsBase.slice(0, count).map(obj => ({...obj}));
 }
 
 function initState(count) {
@@ -78,7 +70,7 @@ function stateReducer(state, action) {
         return {
           score,
           bestScore,
-          cards: shuffleOrder(updatedCards),
+          cards: updatedCards,
           gameOver: score === cardsBase.length, // all cards already clicked
         };
       }
@@ -91,12 +83,22 @@ function stateReducer(state, action) {
 
 export default function GameBoard() {
   const [state, dispatch] = useReducer(stateReducer, START_COUNT, initState);
+  const cardGrid = useRef();
+
+  useEffect(() => {
+    /* Shuffle Cards in the DOM, using CSS grid order property */
+    const cardElems = cardGrid.current.querySelectorAll(".Card");
+    const getNextIndex = permutation(cardElems.length);
+    cardElems.forEach(elem => {
+        elem.style.order = getNextIndex();
+    });
+  });
 
   return (
     <div className="GameBoard">
       <p>Best Score: {state.bestScore}</p>
       <p>Score: {state.score}</p>
-      <div className="cards-container">
+      <div className="cards-container" ref={cardGrid}>
         {state.cards.map((cardObj, i) =>
           <Card key={i} {...cardObj} onClick={() => dispatch(i)} />
         )}
