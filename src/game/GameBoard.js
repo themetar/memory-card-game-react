@@ -1,5 +1,5 @@
 import './GameBoard.css';
-import {useState, useReducer} from 'react';
+import {useReducer} from 'react';
 import permutation from '../util/permutation';
 import Card from './Card';
 
@@ -33,23 +33,40 @@ function initCards(count) {
   return shuffleOrder(cardsBase.slice(0, count).map(obj => ({...obj})));
 }
 
-function cardsStateReducer(cards, action) {
+function initState(count) {
+  return {
+    cards: initCards(count),
+    score: 0,
+    bestScore: 0,
+  }
+}
+
+function stateReducer(state, action) {
   switch(true) {
     case action === "reset":
       /* Reset the board: return the cards to initial state */
-      return initCards(START_COUNT);
+      return {
+        ...state,
+        cards: initCards(START_COUNT),
+        score: 0,
+      };
 
     case typeof action === "number":
       /* Player guessed a correct card */
       const index = action;
-      let updatedCards = cards.slice();
-      updatedCards[index] = {...cards[index], clicked: true};
+      let updatedCards = state.cards.slice();
+      updatedCards[index] = {...state.cards[index], clicked: true};
       // check for difficulty breakpoint
-      const score = cards.reduce((acc, card) => acc + card.clicked, 0) + 1; // get score and calculate update
+      const score = state.score + 1;
       const nextLevel = DIFFICULTY_LEVELS[score];
-      const attach = nextLevel && cardsBase.slice(updatedCards.length, nextLevel).map(obj => ({...obj})) || [];
+      const attach = (nextLevel && cardsBase.slice(updatedCards.length, nextLevel).map(obj => ({...obj}))) || [];
       updatedCards = updatedCards.concat(attach);
-      return shuffleOrder(updatedCards);
+      const bestScore = score > state.bestScore ? score : state.bestScore;
+      return {
+        score,
+        bestScore,
+        cards: shuffleOrder(updatedCards),
+      };
 
     default:
       /* coding error, unplanned case */
@@ -58,31 +75,26 @@ function cardsStateReducer(cards, action) {
 }
 
 export default function GameBoard() {
-  const [cards, updateCards] = useReducer(cardsStateReducer, START_COUNT, initCards);
+  const [state, dispatch] = useReducer(stateReducer, START_COUNT, initState);
   
-  const score = cards.reduce((acc, card) => acc + card.clicked, 0); // count clicked cards
-
-  const [bestScore, setBestScore] = useState(0);
-
   const clickCard = function clickCard(index) {
-    const {clicked} = cards[index];
+    const {clicked} = state.cards[index];
     if (clicked) {
       // reset
       alert("Reset game");
-      setBestScore(score > bestScore ? score : bestScore);
-      updateCards("reset");
+      dispatch("reset");
     } else {
       // score up
-      updateCards(index);
+      dispatch(index);
     }
   };
 
   return (
     <div className="GameBoard">
-      <p>Best Score: {bestScore}</p>
-      <p>Score: {score}</p>
+      <p>Best Score: {state.bestScore}</p>
+      <p>Score: {state.score}</p>
       <div className="cards-container">
-        {cards.map((cardObj, i) =>
+        {state.cards.map((cardObj, i) =>
           <Card key={i} {...cardObj} onClick={() => clickCard(i)} />
         )}
       </div>
