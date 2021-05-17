@@ -3,17 +3,18 @@ import {useEffect, useReducer, useRef} from 'react';
 import permutation from '../util/permutation';
 import Card from './Card';
 
+
 const cardsBase = [
-  {contents: "A", clicked: false},
-  {contents: "B", clicked: false},
-  {contents: "C", clicked: false},
-  {contents: "D", clicked: false},
-  {contents: "E", clicked: false},
-  {contents: "F", clicked: false},
-  {contents: "G", clicked: false},
-  {contents: "H", clicked: false},
-  {contents: "I", clicked: false},
-  {contents: "J", clicked: false},
+  {contents: {title: "Smurfette",     src: "smurfs/Smurfette.webp"},            clicked: false},
+  {contents: {title: "Handy Smurf",   src: "smurfs/Schtroumpf-bricoleur.webp"}, clicked: false},
+  {contents: {title: "Vanity Smurf",  src: "smurfs/VanitySmurf.webp"},          clicked: false},
+  {contents: {title: "Chef Smurf",    src: "smurfs/Schtroumpf_cuisinier.webp"}, clicked: false},
+  {contents: {title: "Jokey Smurf",   src: "smurfs/Schtroumpf_Farceur.webp"},   clicked: false},
+  {contents: {title: "Greedy Smurf",  src: "smurfs/greedy-smurf.jpg"},          clicked: false},
+  {contents: {title: "Hefty Smurf",   src: "smurfs/Schtroumpf-costaud.webp"},   clicked: false},
+  {contents: {title: "Grouchy Smurf", src: "smurfs/Schtroumpf-grognon.webp"},   clicked: false},
+  {contents: {title: "Clumsy Smurf",  src: "smurfs/clumsy-smurf.jpg"},          clicked: false},
+  {contents: {title: "Papa Smurf",    src: "smurfs/Papa_smurf.jpg"},            clicked: false},
 ];
 
 const START_COUNT = 5;

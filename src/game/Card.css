@@ -1,3 +1,5 @@
 .Card {
   border: 1px solid black;
 }
+
+.Card img { max-width: 200px; }
