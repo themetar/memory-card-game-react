@@ -1,5 +1,22 @@
 .Card {
-  border: 1px solid black;
+  padding-top: 1em;
+  border-radius: .5em;
+  border: 2px solid white;
+  transform-origin: 50% 50%;
+  transition-property: transform, box-shadow, border-color;
+  transition-duration: 300ms;
+  transition-timing-function: ease-in-out;
 }
 
 .Card img { max-width: 200px; }
+
+
+.Card.enabled:hover {
+  box-shadow: 0 0 1em rgba(46, 186, 237, .3), /* 'smurf' color in decimal rgb */
+              0 1.1em 1em -.5em rgba(0, 0, 0, .4);
+  transform: translateY(-.6em) rotate(3deg);
+}
+
+.Card.enabled:active {
+  border-color: var(--smurf);
+}

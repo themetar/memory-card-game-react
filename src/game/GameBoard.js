@@ -95,7 +95,7 @@ export default function GameBoard() {
     });
   });
 
-  const {score, bestScore} = state;
+  const {score, bestScore, gameOver} = state;
   const allCount = cardsBase.length;
 
   return (
@@ -104,7 +104,7 @@ export default function GameBoard() {
       <p>Score: {score}</p>
       <div className="cards-container" ref={cardGrid}>
         {state.cards.map((cardObj, i) =>
-          <Card key={i} {...cardObj} onClick={() => dispatch(i)} />
+          <Card key={i} {...cardObj} onClick={() => dispatch(i)} enabled={!gameOver} />
         )}
       </div>
       {state.gameOver && (
