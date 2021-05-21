@@ -3,3 +3,45 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 1em;
 }
+
+.popup {
+  position: fixed;
+  left: 50%;
+  top:50%;
+  transform: translate(-50%, -50%);
+
+  padding: 1em;
+  
+  background-color: white;
+  border: .5em solid var(--smurf);
+  border-radius: 2em;
+
+  box-shadow: 0 0 1em rgba(0, 0, 0, .6),
+              0 2em 2em -2em black;
+}
+
+.popup p {
+  font-size: 1.4em;
+}
+
+.popup button {
+  font-family: Smurfesque;
+  font-weight: bold;
+  font-size: 1.1em;
+  padding: .3em ;
+  color: white;
+  border: 1px solid black;
+  border-radius: 4px;
+
+  background: linear-gradient(120deg, var(--smurf) 40%, lightblue 50%, var(--smurf) 60%);
+  background-size: 250% 100%;
+  background-position-x: 100%;
+
+  transition: background-position-x 300ms ease-in;
+
+  cursor: pointer;
+}
+
+.popup button:hover {
+  background-position-x: 0%;
+}

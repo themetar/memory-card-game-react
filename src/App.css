@@ -1,4 +1,6 @@
 .App {
+  --smurf: #2ebaed;
+
   text-align: center;
   font-family: Smurfesque;
 }

@@ -95,19 +95,24 @@ export default function GameBoard() {
     });
   });
 
+  const {score, bestScore} = state;
+  const allCount = cardsBase.length;
+
   return (
     <div className="GameBoard">
-      <p>Best Score: {state.bestScore}</p>
-      <p>Score: {state.score}</p>
+      <p>Best Score: {bestScore}</p>
+      <p>Score: {score}</p>
       <div className="cards-container" ref={cardGrid}>
         {state.cards.map((cardObj, i) =>
           <Card key={i} {...cardObj} onClick={() => dispatch(i)} />
         )}
       </div>
       {state.gameOver && (
-        <div>
-          <p>Game over</p>
-          <button onClick={() => dispatch("reset")}>Play Again</button>
+        <div className="popup">
+          <p>You got {score === allCount ? "all of them!" : `${score} out of ${allCount}.` }</p>
+          <button onClick={() => dispatch("reset")}>
+            {score === allCount ? "Play" : "Try"} Again
+          </button>
         </div>
       )}
     </div>
