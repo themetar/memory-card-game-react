@@ -1,0 +1,13 @@
+@font-face {
+  font-family: Smurfesque;
+  font-style: normal;
+  font-weight: normal;
+  src: url("./fonts/CREABBRG.TTF") format("truetype");
+}
+
+@font-face {
+  font-family: Smurfesque;
+  font-style: normal;
+  font-weight: bold;
+  src: url("./fonts/CREABBB_.TTF") format("truetype");
+}
