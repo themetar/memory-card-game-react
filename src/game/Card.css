@@ -20,3 +20,22 @@
 .Card.enabled:active {
   border-color: var(--smurf);
 }
+
+.Card.selected { border-color: var(--smurf); }
+
+.Card.mistake { border-color: red; }
+
+.Card.won {
+  border-color: gold;
+  animation: glow 500ms linear infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 0 gold;
+  }
+
+  to {
+    box-shadow: 0 0 .6em gold;
+  }
+}

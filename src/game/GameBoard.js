@@ -32,6 +32,7 @@ function initState(count) {
     score: 0,
     bestScore: 0,
     gameOver: false,
+    lastCard: null,
   }
 }
 
@@ -44,6 +45,7 @@ function stateReducer(state, action) {
         cards: initCards(START_COUNT),
         score: 0,
         gameOver: false,
+        lastCard: null,
       };
 
     case typeof action === "number":
@@ -52,11 +54,13 @@ function stateReducer(state, action) {
       /* Player guessed a card */
       const index = action;
       const card = state.cards[index];
+      const lastCard = index;
       if (card.clicked) {
         /* Player guessed an incorrect card */
         return {
           ...state,
           gameOver: true,
+          lastCard,
         }
       } else {
         /* Player guessed a correct card */
@@ -73,6 +77,7 @@ function stateReducer(state, action) {
           bestScore,
           cards: updatedCards,
           gameOver: score === cardsBase.length, // all cards already clicked
+          lastCard,
         };
       }
 
@@ -95,7 +100,7 @@ export default function GameBoard() {
     });
   });
 
-  const {score, bestScore, gameOver} = state;
+  const {score, bestScore, gameOver, lastCard} = state;
   const allCount = cardsBase.length;
 
   return (
@@ -104,7 +109,7 @@ export default function GameBoard() {
       <p>Score: {score}</p>
       <div className="cards-container" ref={cardGrid}>
         {state.cards.map((cardObj, i) =>
-          <Card key={i} {...cardObj} onClick={() => dispatch(i)} enabled={!gameOver} />
+          <Card key={i} {...cardObj} onClick={() => dispatch(i)} enabled={!gameOver} won={score === allCount && lastCard === i} wrong={score !== allCount && lastCard === i} />
         )}
       </div>
       {state.gameOver && (
