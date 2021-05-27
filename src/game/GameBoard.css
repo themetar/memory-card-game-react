@@ -1,3 +1,10 @@
+.scores {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.scores > *:first-child { grid-column: 2; }
+
 .cards-container {
   max-width: 1080px;
   margin-left: auto;

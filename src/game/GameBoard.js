@@ -105,8 +105,10 @@ export default function GameBoard() {
 
   return (
     <div className="GameBoard">
-      <p>Best Score: {bestScore}</p>
-      <p>Score: {score}</p>
+      <div className="scores">
+        <p>Score: {score} / {allCount}</p>
+        <p>Best Score: {bestScore} / {allCount}</p>
+      </div>  
       <div className="cards-container" ref={cardGrid}>
         {state.cards.map((cardObj, i) =>
           <Card key={i} {...cardObj} onClick={() => dispatch(i)} enabled={!gameOver} won={score === allCount && lastCard === i} wrong={score !== allCount && lastCard === i} />
