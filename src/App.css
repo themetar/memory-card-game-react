@@ -4,3 +4,30 @@
   text-align: center;
   font-family: Smurfesque;
 }
+
+header h1 {
+  padding: .5em .25em;
+  background-color: var(--smurf);
+  color: white;
+}
+
+header .small { font-size: .6em; }
+
+header .big {
+  font-size: 3rem;
+  letter-spacing: -.1em;
+}
+
+.brainy-explain {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.brainy-explain em {
+  text-decoration: underline;
+}
+
+.brainy-explain img {
+  max-width: 150px;
+}
