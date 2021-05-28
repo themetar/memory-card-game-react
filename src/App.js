@@ -13,7 +13,7 @@ function App() {
       </header>
       <GameBoard />
       <footer>
-        Made by <a href="https://github.com/themetar">themetar</a>. <i>The Smurfs</i> by <a href="https://en.wikipedia.org/wiki/Peyo">Peyo</a>.
+        Made by <a href="https://github.com/themetar" target="_blank" rel="noreferrer">themetar</a>. <i>The Smurfs</i> by <a href="https://en.wikipedia.org/wiki/Peyo" target="_blank" rel="noreferrer">Peyo</a>.
       </footer>
     </div>
   );
