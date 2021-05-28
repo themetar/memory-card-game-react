@@ -12,6 +12,9 @@ function App() {
         </div>
       </header>
       <GameBoard />
+      <footer>
+        Made by <a href="https://github.com/themetar">themetar</a>. <i>The Smurfs</i> by <a href="https://en.wikipedia.org/wiki/Peyo">Peyo</a>.
+      </footer>
     </div>
   );
 }
