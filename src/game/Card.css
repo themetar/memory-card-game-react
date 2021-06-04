@@ -1,7 +1,7 @@
 .Card {
   padding-top: 1em;
   border-radius: .5em;
-  border: 2px solid white;
+  border: 2px solid #f3f3f3;
   transform-origin: 50% 50%;
   transition-property: transform, box-shadow, border-color;
   transition-duration: 300ms;
@@ -12,8 +12,8 @@
 
 
 .Card.enabled:hover {
-  box-shadow: 0 0 1em rgba(46, 186, 237, .3), /* 'smurf' color in decimal rgb */
-              0 1.1em 1em -.5em rgba(0, 0, 0, .4);
+  border-color: rgba(46, 186, 237, .3); /* 'smurf' color in decimal rgb */
+  box-shadow: 0 1.1em 1em -.5em rgba(0, 0, 0, .4);
   transform: translateY(-.6em) rotate(3deg);
 }
 
