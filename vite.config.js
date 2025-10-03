@@ -8,4 +8,11 @@ export default defineConfig({
     exclude: [],
     loader: 'jsx',
   },
+  optimizeDeps: {
+    esbuildOptions: {
+      loader: {
+        '.js': 'jsx',
+      },
+    },
+  },
 })
