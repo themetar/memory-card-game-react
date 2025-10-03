@@ -4,13 +4,13 @@ Memory game built with [React](https://reactjs.org/). Click on each and every ca
 
 ## Run it locally
 
-Install [node.js](https://nodejs.org/) and [yarn](https://yarnpkg.com/).
+Install [node.js](https://nodejs.org/) and [pnpm](https://pnpm.io/).
 
 Clone/download this project's code. Change into code directiory and run in terminal:
 
-$ `yarn install`
+$ `pnpm install`
 
-$ `yarn start`
+$ `pnpm start`
 
 ## React features used
 
@@ -21,7 +21,5 @@ $ `yarn start`
   - Reducers
 
 ## Thanks
-
-[This project was bootstrapped with _Create React App_.](./CRA-README.md)
 
 Part of [The Odin Project](https://www.theodinproject.com/) Javascript curriculum.
