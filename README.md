@@ -10,7 +10,9 @@ Clone/download this project's code. Change into code directiory and run in termi
 
 $ `pnpm install`
 
-$ `pnpm start`
+$ `pnpm start` to run local development server
+
+$ `pnpm test` to run tests
 
 ## React features used
 
