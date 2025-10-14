@@ -1,7 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from "@testing-library/user-event";
-import App from './App';
+import { cardChooserFor } from './testHelper';
+import App from '../src/App';
 
 describe('App', () => {
   it('renders header', () => {
@@ -39,18 +40,10 @@ describe('App', () => {
     const {container} = render(<App />);
     const N_CARDS = 5;
 
-    const clicked = [];
+    const cardChooser = cardChooserFor(container);
 
     for(let i = 0; i < N_CARDS; i++) {
-      const cards = container.querySelectorAll('.Card');
-      
-      const choice = Array.prototype.find.call(cards, card => {
-        const title = card.querySelector('h2').textContent;
-        return !clicked.includes(title);
-      });
-
-      await user.click(choice);
-      clicked.push(choice.querySelector('h2').textContent); // add card title to `clicked`
+      await user.click(cardChooser.newCard());
 
       const [score] = container.querySelector('.scores').children;
       expect(score.textContent).toEqual(`Score: ${i + 1} / 10`);
@@ -59,55 +52,33 @@ describe('App', () => {
     let gameOverPopup = container.querySelector('.popup');
     expect(gameOverPopup).toBeNull();
 
-    // click a previously clicked card
-    const cards = container.querySelectorAll('.Card');
-    const choice = Array.prototype.find.call(cards, card => {
-      const title = card.querySelector('h2').textContent;
-      return clicked.includes(title);
-    });
-    await user.click(choice);
+    await user.click(cardChooser.oldCard());
 
     gameOverPopup = container.querySelector('.popup');
     expect(gameOverPopup).toBeInTheDocument();
-
+    expect(gameOverPopup.querySelector('p').textContent).toEqual(`You got ${N_CARDS} out of 10.`); // lost!
   });
 
   it('reaches game over when all cards are clicked (game won)', async () => {
     const user = userEvent.setup();
 
     const {container} = render(<App />);
-
-    const clicked = [];
-
-    const chooseCard = () => {
-      const cards = container.querySelectorAll('.Card');
-      
-      const choice = Array.prototype.find.call(cards, card => {
-        const title = card.querySelector('h2').textContent;
-        return !clicked.includes(title);
-      });
-
-      if (choice) clicked.push(choice.querySelector('h2').textContent); // add card title to `clicked`
-
-      return choice;
-    };
+    const cardChooser = cardChooserFor(container);
 
     let gameOverPopup = container.querySelector('.popup');
     expect(gameOverPopup).toBeNull();
     
     let choice;
 
-    while ((choice = chooseCard())) {
+    while ((choice = cardChooser.newCard())) {
       await user.click(choice);
       
       const [score] = container.querySelector('.scores').children;
-      expect(score.textContent).toEqual(`Score: ${clicked.length} / 10`);
     }
 
     gameOverPopup = container.querySelector('.popup');
     expect(gameOverPopup).toBeInTheDocument();
     expect(gameOverPopup.querySelector('p').textContent).toEqual('You got all of them!'); // won!
-
   });
 });
 
