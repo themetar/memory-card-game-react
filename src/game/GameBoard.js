@@ -93,6 +93,9 @@ export default function GameBoard() {
 
   useEffect(() => {
     /* Shuffle Cards in the DOM, using CSS grid order property */
+
+    if (gameOver) return; // unless the game ended
+
     const cardElems = cardGrid.current.querySelectorAll(".Card");
     const getNextIndex = permutation(cardElems.length);
     cardElems.forEach(elem => {
