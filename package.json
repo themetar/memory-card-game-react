@@ -9,7 +9,7 @@
     "react-dom": "^19.0.2"
   },
   "scripts": {
-    "predeploy": "pnpm build",
+    "predeploy": "pnpm vite build --base=/memory-card-game-react/",
     "deploy": "gh-pages -d dist",
     "start": "vite",
     "build": "vite build",
