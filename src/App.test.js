@@ -35,6 +35,7 @@ describe('App', () => {
 
   it('reaches game over when a card is clicked twice (game lost)', async () => {
     const user = userEvent.setup();
+
     const {container} = render(<App />);
     const N_CARDS = 5;
 
@@ -68,6 +69,44 @@ describe('App', () => {
 
     gameOverPopup = container.querySelector('.popup');
     expect(gameOverPopup).toBeInTheDocument();
+
+  });
+
+  it('reaches game over when all cards are clicked (game won)', async () => {
+    const user = userEvent.setup();
+
+    const {container} = render(<App />);
+
+    const clicked = [];
+
+    const chooseCard = () => {
+      const cards = container.querySelectorAll('.Card');
+      
+      const choice = Array.prototype.find.call(cards, card => {
+        const title = card.querySelector('h2').textContent;
+        return !clicked.includes(title);
+      });
+
+      if (choice) clicked.push(choice.querySelector('h2').textContent); // add card title to `clicked`
+
+      return choice;
+    };
+
+    let gameOverPopup = container.querySelector('.popup');
+    expect(gameOverPopup).toBeNull();
+    
+    let choice;
+
+    while ((choice = chooseCard())) {
+      await user.click(choice);
+      
+      const [score] = container.querySelector('.scores').children;
+      expect(score.textContent).toEqual(`Score: ${clicked.length} / 10`);
+    }
+
+    gameOverPopup = container.querySelector('.popup');
+    expect(gameOverPopup).toBeInTheDocument();
+    expect(gameOverPopup.querySelector('p').textContent).toEqual('You got all of them!'); // won!
 
   });
 });
