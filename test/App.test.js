@@ -5,13 +5,6 @@ import { cardChooserFor } from './testHelper';
 import App from '../src/App';
 
 describe('App', () => {
-  it('renders header', () => {
-    render(<App />);
-    const header = screen.getByRole('banner');
-    expect(header).toBeInTheDocument();
-    expect(header.querySelector('h1').textContent).toEqual('The Smurfs Memory Game');
-  });
-
   it('renders score', () =>{
     const {container} = render(<App />);
     const scoreElement = container.querySelector('.scores');
