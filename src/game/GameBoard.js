@@ -4,7 +4,7 @@ import permutation from '../util/permutation';
 import Card from './Card';
 
 
-const cardsBase = [
+const CARDS_BASE = [
   {contents: {title: "Smurfette",     src: "smurfs/Smurfette.webp"},            clicked: false},
   {contents: {title: "Handy Smurf",   src: "smurfs/Schtroumpf-bricoleur.webp"}, clicked: false},
   {contents: {title: "Vanity Smurf",  src: "smurfs/VanitySmurf.webp"},          clicked: false},
@@ -17,15 +17,13 @@ const cardsBase = [
   {contents: {title: "Papa Smurf",    src: "smurfs/Papa_smurf.jpg"},            clicked: false},
 ];
 
-const START_COUNT = 5;
+const DIFFICULTY_LEVELS = {0: 5, 3: 7, 5: 8, 7: 10};
 
-const DIFFICULTY_LEVELS = {3:7, 5:8, 7:10};
-
-const GRID_ELEMENTS_MAX_COUNT = 12; // 4 x 3 >= cardsBase.length
+const GRID_ELEMENTS_MAX_COUNT = 12; // 4 x 3 >= CARDS_BASE.length
 
 function initCards(count) {
-  // deep copy 'count' number of items from cardsBase
-  return cardsBase.slice(0, count).map(obj => ({...obj}));
+  // deep copy 'count' number of items from CARDS_BASE
+  return CARDS_BASE.slice(0, count).map(obj => ({...obj}));
 }
 
 function initState(count) {
@@ -43,7 +41,7 @@ function stateReducer(state, action) {
     case action === "reset":
       /* Reset the board: return the cards to initial state */
       return {
-        ...initState(START_COUNT),
+        ...initState(DIFFICULTY_LEVELS[0]),
         bestScore: state.bestScore, // copy best score from previous state
       };
 
@@ -69,8 +67,8 @@ function stateReducer(state, action) {
       let updatedCards = state.cards.slice();
       updatedCards[lastCard] = {...card, clicked: true};
       // check for difficulty breakpoint
-      const nextLevel = DIFFICULTY_LEVELS[score];
-      const attach = (nextLevel && cardsBase.slice(updatedCards.length, nextLevel)) || [];
+      const nextLevel = DIFFICULTY_LEVELS[score] || state.cards.length;
+      const attach = CARDS_BASE.slice(updatedCards.length, nextLevel);
       updatedCards = updatedCards.concat(attach.map(obj => ({...obj})));
       // update best score if needed
       const bestScore = score > state.bestScore ? score : state.bestScore;
@@ -80,7 +78,7 @@ function stateReducer(state, action) {
         bestScore,
         lastCard,
         cards: updatedCards,
-        gameOver: score === cardsBase.length, // all cards already clicked
+        gameOver: score === CARDS_BASE.length, // all cards already clicked
       };
 
     default:
@@ -94,7 +92,7 @@ function placeholders(size) {
 }
 
 export default function GameBoard() {
-  const [state, dispatch] = useReducer(stateReducer, START_COUNT, initState);
+  const [state, dispatch] = useReducer(stateReducer, DIFFICULTY_LEVELS[0], initState);
   const cardGrid = useRef();
 
   useEffect(() => {
@@ -110,7 +108,9 @@ export default function GameBoard() {
   });
 
   const {score, bestScore, gameOver, lastCard} = state;
-  const allCount = cardsBase.length;
+  const allCount = CARDS_BASE.length;
+  const gameWon = gameOver && score === allCount;
+  const gameLost = gameOver && score !== allCount;
 
   return (
     <div className="GameBoard">
@@ -120,7 +120,7 @@ export default function GameBoard() {
       </div>  
       <div className="cards-container" ref={cardGrid}>
         {state.cards.map((cardObj, i) =>
-          <Card key={i} {...cardObj} onClick={() => dispatch(i)} enabled={!gameOver} won={score === allCount && lastCard === i} wrong={score !== allCount && lastCard === i} />
+          <Card key={i} {...cardObj} onClick={() => dispatch(i)} enabled={!gameOver} won={gameWon && lastCard === i} wrong={gameLost && lastCard === i} />
         )}
         {placeholders(GRID_ELEMENTS_MAX_COUNT - state.cards.length)}
       </div>
