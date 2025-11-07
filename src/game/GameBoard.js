@@ -21,6 +21,8 @@ const START_COUNT = 5;
 
 const DIFFICULTY_LEVELS = {3:7, 5:8, 7:10};
 
+const GRID_ELEMENTS_MAX_COUNT = 12; // 4 x 3 >= cardsBase.length
+
 function initCards(count) {
   // deep copy 'count' number of items from cardsBase
   return cardsBase.slice(0, count).map(obj => ({...obj}));
@@ -87,6 +89,10 @@ function stateReducer(state, action) {
   }
 }
 
+function placeholders(size) {
+  return Array.from({length: size}, (_, i) => <div key={`placeholder-${i}`}></div>);
+}
+
 export default function GameBoard() {
   const [state, dispatch] = useReducer(stateReducer, START_COUNT, initState);
   const cardGrid = useRef();
@@ -96,11 +102,11 @@ export default function GameBoard() {
 
     if (gameOver) return; // unless the game ended
 
-    const cardElems = cardGrid.current.querySelectorAll(".Card");
-    const getNextIndex = permutation(cardElems.length);
-    cardElems.forEach(elem => {
-        elem.style.order = getNextIndex();
-    });
+    const cardsAndPlaceholders = cardGrid.current.children;
+    const getNextIndex = permutation(GRID_ELEMENTS_MAX_COUNT);
+    for(const element of cardsAndPlaceholders) {
+        element.style.order = getNextIndex();
+    }
   });
 
   const {score, bestScore, gameOver, lastCard} = state;
@@ -116,6 +122,7 @@ export default function GameBoard() {
         {state.cards.map((cardObj, i) =>
           <Card key={i} {...cardObj} onClick={() => dispatch(i)} enabled={!gameOver} won={score === allCount && lastCard === i} wrong={score !== allCount && lastCard === i} />
         )}
+        {placeholders(GRID_ELEMENTS_MAX_COUNT - state.cards.length)}
       </div>
       {state.gameOver && (
         <div className="popup">
