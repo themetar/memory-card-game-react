@@ -63,3 +63,15 @@ footer a {
 footer a:hover { background-position-x: 0%; }
 
 footer a:visited { background-color: gold; }
+
+@media all and (max-width: 720px) {
+  body {
+    font-size: 10pt;
+  }
+
+  header .big { font-size: 2rem; }
+
+  .brainy-explain img {
+    max-width: 80px;
+  }
+}

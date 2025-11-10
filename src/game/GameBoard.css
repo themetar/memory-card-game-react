@@ -16,7 +16,6 @@
 .cards-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 1fr);
   gap: 1em;
   align-items: stretch;
 }
@@ -73,12 +72,6 @@
   }
 }
 
-@media all and (max-width: 900px) {
-  .cards-container {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  }
-}
-
 @media all and (max-width: 720px) {
   .scores {
     display: grid;
@@ -89,5 +82,6 @@
 
   .cards-container {
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: .6em;
   }
 }
