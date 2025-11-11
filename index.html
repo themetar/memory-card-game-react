@@ -3,15 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <meta name="description" content="A memory card game" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="public/manifest.json" />
+  <meta name="description" content="A memory card game" />
+  <!--
+    manifest.json provides metadata used when your web app is installed on a
+    user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+  -->
+  <link rel="manifest" href="public/manifest.json" />
   <% for(let src of cardsImageSources){ -%>
   <link rel="preload" as="image" href="<%- src %>" />
   <% } -%>
+  <link rel="stylesheet" href="/src/index.css">
+  <link rel="stylesheet" href="/src/fonts.css">
   <title>Memory Card Game</title>
 </head>
 <body>
