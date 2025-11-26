@@ -12,6 +12,30 @@
   <title>Memory Card Game</title>
 </head>
 <body>
+  <div id="loading"><span class="loading-dot"></span><span class="loading-dot" style="--anim-delay: 0.33s"></span><span class="loading-dot" style="--anim-delay: 0.66s"></span></div>
+  <style>
+    #loading {
+      position: fixed; top: 0; bottom: 0; left: 0; right: 0; display: flex; place-content: center; align-items: center;
+    }
+    .loading-dot {
+      display: inline-block; width: 1rem; height: 1rem; border-radius: 50%; background-color: #2ebaed; margin-left: .5rem;
+      --anim-delay: 0s;
+      animation: dot-jump 1s cubic-bezier(.45,.04,.68,.96) var(--anim-delay) infinite;
+    }
+    @keyframes dot-jump {
+      from { transform: translateY(0);}
+      50% { transform: translateY(-1em);}
+      to { transform: translateY(0);}
+    }
+  </style>
+  <script>
+    document.querySelector("body").style.visibility = "hidden";
+    document.getElementById("loading").style.visibility = "visible";
+    window.addEventListener("load", () => {
+      document.getElementById("loading").style.display = "none";
+      document.querySelector("body").style.visibility = "visible";
+    });
+  </script>
   <header>
     <h1><span class="big">The Smurfs</span> <span class="small">Memory Game</span></h1>
     <div class="brainy-explain">
