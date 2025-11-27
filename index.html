@@ -1,30 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <meta name="description" content="A memory card game" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="/memory-card-game-react/assets/manifest-DEqllLDk.json" />
-  <title>Memory Card Game</title>
-  <script type="module" crossorigin src="/memory-card-game-react/assets/index-DmxGuT_W.js"></script>
-  <link rel="stylesheet" crossorigin href="/memory-card-game-react/assets/index-CMZTXvlm.css">
-</head>
-<body>
-  <header>
-    <h1><span class="big">The Smurfs</span> <span class="small">Memory Game</span></h1>
-    <div class="brainy-explain">
-      <p>"Click <em>every</em> card, but only <em>once</em>."</p>
-      <img src="./smurfs/Brainy.webp" alt=""></img>
-    </div>
-  </header>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root"></div>
-  <footer>
-    Made by <a href="https://github.com/themetar" target="_blank" rel="noreferrer">themetar</a>. <i>The Smurfs</i> by <a href="https://en.wikipedia.org/wiki/Peyo" target="_blank" rel="noreferrer">Peyo</a>.
-  </footer>
-</body>
-</html>
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="A memory card game"/><link rel="manifest" href="/memory-card-game-react/assets/manifest-DEqllLDk.json"/><link rel="preload" as="image" href="smurfs/Smurfette.webp"/><link rel="preload" as="image" href="smurfs/Schtroumpf-bricoleur.webp"/><link rel="preload" as="image" href="smurfs/VanitySmurf.webp"/><link rel="preload" as="image" href="smurfs/Schtroumpf_cuisinier.webp"/><link rel="preload" as="image" href="smurfs/Schtroumpf_Farceur.webp"/><link rel="preload" as="image" href="smurfs/greedy-smurf.jpg"/><link rel="preload" as="image" href="smurfs/Schtroumpf-costaud.webp"/><link rel="preload" as="image" href="smurfs/Schtroumpf-grognon.webp"/><link rel="preload" as="image" href="smurfs/clumsy-smurf.jpg"/><link rel="preload" as="image" href="smurfs/Papa_smurf.jpg"/><title>Memory Card Game</title><script type="module" crossorigin src="/memory-card-game-react/assets/index-DmxGuT_W.js"></script><link rel="stylesheet" crossorigin href="/memory-card-game-react/assets/index-CMZTXvlm.css"></head><body><div id="loading"><span class="loading-dot"></span><span class="loading-dot" style="--anim-delay:0.33s"></span><span class="loading-dot" style="--anim-delay:0.66s"></span></div><style>#loading{position:fixed;top:0;bottom:0;left:0;right:0;display:flex;place-content:center;align-items:center}.loading-dot{display:inline-block;width:1rem;height:1rem;border-radius:50%;background-color:#2ebaed;margin-left:.5rem;--anim-delay:0s;animation:dot-jump 1s cubic-bezier(.45,.04,.68,.96) var(--anim-delay) infinite}@keyframes dot-jump{from{transform:translateY(0)}50%{transform:translateY(-1em)}to{transform:translateY(0)}}</style><script>document.querySelector("body").style.visibility = "hidden";
+    document.getElementById("loading").style.visibility = "visible";
+    window.addEventListener("load", () => {
+      document.getElementById("loading").style.display = "none";
+      document.querySelector("body").style.visibility = "visible";
+    });</script><header><h1><span class="big">The Smurfs</span> <span class="small">Memory Game</span></h1><div class="brainy-explain"><p>"Click <em>every</em> card, but only <em>once</em>."</p><img src="./smurfs/Brainy.webp" alt=""></div></header><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div><footer>Made by <a href="https://github.com/themetar" target="_blank" rel="noreferrer">themetar</a>. <i>The Smurfs</i> by <a href="https://en.wikipedia.org/wiki/Peyo" target="_blank" rel="noreferrer">Peyo</a>.</footer></body></html>
